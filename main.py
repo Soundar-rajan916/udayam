@@ -60,7 +60,7 @@ def verify(req: VerifyRequest):
         return {"status": "not verified", "udyam_no": req.udyam_no, "reason": "invalid format"}
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.set_default_timeout(60000)
 
