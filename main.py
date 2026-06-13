@@ -60,7 +60,7 @@ def verify(req: VerifyRequest):
         return {"status": "not verified", "udyam_no": req.udyam_no, "reason": "invalid format"}
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.set_default_timeout(60000)
 
@@ -103,8 +103,7 @@ def verify(req: VerifyRequest):
                 continue
 
             browser.close()
-            result = "".join(normalize_text(body_text).split())
-            normalized_body = result
+            normalized_body = normalize_text(body_text)
             if target not in normalized_body:
                 return {"status": "not verified", "udyam_no": req.udyam_no, "reason": "udyam_no not found"}
             if company_name not in normalized_body:
