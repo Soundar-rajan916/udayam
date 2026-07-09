@@ -20,7 +20,12 @@ RUN python -m playwright install chromium
 RUN python -m playwright install-deps chromium
 
 COPY main.py .
+COPY frontend.py .
+COPY start.sh .
 
-EXPOSE 8000
+RUN chmod +x start.sh
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Render will provide the PORT env var, but we expose 10000 as default
+EXPOSE 10000
+
+CMD ["./start.sh"]
