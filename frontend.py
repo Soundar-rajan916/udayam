@@ -1,13 +1,11 @@
 import streamlit as st
 import requests
 
-import os
-
-API_URL = os.getenv("API_URL", "http://localhost:8000/verify")
+API_URL = "http://localhost:8000/verify"
 
 st.set_page_config(page_title="Udyam Verifier", page_icon="🏢")
 
-st.title("🏢 Udyam Verifier")
+st.title("Udyam Verifier")
 
 st.markdown("Enter the Udyam Registration Number and Company Name to verify.")
 
@@ -29,13 +27,13 @@ if st.button("Verify", type="primary"):
                 result = response.json()
                 
                 if result.get("status") == "valid":
-                    st.success("✅ Registration Valid")
+                    st.success(" Registration Valid")
                     st.json(result)
                 elif result.get("status") == "not verified":
-                    st.warning(f"⚠️ Not Verified: {result.get('reason')}")
+                    st.warning(f" Not Verified: {result.get('reason')}")
                     st.json(result)
                 elif "error" in result:
-                    st.error(f"❌ Error: {result.get('error')}")
+                    st.error(f" Error: {result.get('error')}")
                 else:
                     st.info("Result:")
                     st.json(result)
